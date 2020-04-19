@@ -1,0 +1,5 @@
+.Login {
+  -webkit-user-modify: read-write-plaintext-only;
+  text-align: center;
+  font-size: 21px;
+}
