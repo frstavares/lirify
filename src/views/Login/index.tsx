@@ -1,19 +1,14 @@
 import React from "react";
-import logo from "../../public/logo.svg";
+import logo from "../../assets/logo.png";
 import "./index.css";
+
+const apiUrl = process.env.API_URL || "http://localhost:3005";
 
 function Login(props: any) {
   return (
-    <div className="Login">
-      <header className="Login-header">
-        <img src={logo} className="Login-logo" alt="logo" />
-        <a
-          className="Login-link"
-          href={`http://${window.location.hostname}:3005/auth/spotify`}
-        >
-          Login with Spotify
-        </a>
-      </header>
+    <div>
+      <img src={logo} alt="Lirify" />
+      <a href={`${apiUrl}/api/auth/spotify`}>Login with Spotify</a>
     </div>
   );
 }

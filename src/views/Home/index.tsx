@@ -19,9 +19,7 @@ export default function Home() {
         .artists[0].name;
 
       const searchResults = await fetch(
-        `http://${(process as any).env.HOST}:${3005}/lyrics?q=${encodeURI(
-          `${artistName} ${songName}`
-        )}`
+        `/api/lyrics?q=${encodeURI(`${artistName} ${songName}`)}`
       );
 
       if (searchResults) {
@@ -88,28 +86,22 @@ export default function Home() {
       };
 
       // Error handling
-      player.addListener(
-        "initialization_error",
-        (args: { message: string }) => {
-          console.error("initialization_error", args.message);
-        }
-      );
+      player.addListener("initialization_error", (error: any) => {
+        console.error("initialization_error", error);
+      });
 
-      player.addListener(
-        "authentication_error",
-        (args: { message: string }) => {
-          console.error("authentication_error", args.message);
-          history.push("/");
-        }
-      );
-
-      player.addListener("account_error", (args: { message: string }) => {
-        console.error("account_error", args.message);
+      player.addListener("authentication_error", (error: any) => {
+        console.error("authentication_error", error);
         history.push("/");
       });
 
-      player.addListener("playback_error", (args: { message: string }) => {
-        console.error("playback_error", args.message);
+      player.addListener("account_error", (error: any) => {
+        console.error("account_error", error);
+        history.push("/");
+      });
+
+      player.addListener("playback_error", (error: any) => {
+        console.error("playback_error", error);
       });
 
       // Playback status updates
@@ -123,14 +115,16 @@ export default function Home() {
 
       // Ready
       player.addListener("ready", (args: { device_id: string }) => {
-        console.log("Ready with Device ID", args.device_id);
+        console.log("Ready...");
+        console.log(args);
 
         play(player);
       });
 
       // Not Ready
       player.addListener("not_ready", (args: { device_id: string }) => {
-        console.log("Device ID has gone offline", args.device_id);
+        console.log("Device ID has gone offline");
+        console.log(args);
       });
 
       // Connect to the player!
@@ -144,5 +138,5 @@ export default function Home() {
     };
   }, [playerState, query]);
 
-  return lyrics ? <div className="Lyrics">{lyrics}</div> : null;
+  return lyrics ? <div>{lyrics}</div> : null;
 }

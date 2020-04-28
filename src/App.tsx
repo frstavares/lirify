@@ -1,12 +1,11 @@
-import { useQuery } from "./tools/useQuery";
 import React from "react";
-import { Route, useLocation, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import Login from "./views/Login";
 import Home from "./views/Home";
+import { useQuery } from "./tools/useQuery";
 
 export default function App() {
   const query = useQuery();
-
   const isLoggedIn = query.get("accessToken") ? true : false;
 
   return (
@@ -14,7 +13,6 @@ export default function App() {
       <Route exact path="/">
         {isLoggedIn ? <Home /> : <Login />}
       </Route>
-
       <Route path="*">
         <NoMatch />
       </Route>
