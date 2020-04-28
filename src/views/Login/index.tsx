@@ -8,7 +8,7 @@ function Login(props: any) {
   return (
     <div>
       <img src={logo} alt="Lirify" />
-      <a href={`${apiUrl}/api/auth/spotify`}>Login with Spotify</a>
+      <a href={`${apiUrl}/auth/spotify`}>Login with Spotify</a>
     </div>
   );
 }
