@@ -3,6 +3,8 @@ import history from "../../tools/history";
 import { useQuery } from "../../tools/useQuery";
 import fetch from "node-fetch";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3005";
+
 export default function Home() {
   const [lyrics, setLyrics] = useState();
   const [playerState, setPlayedState] = useState();
@@ -19,7 +21,7 @@ export default function Home() {
         .artists[0].name;
 
       const searchResults = await fetch(
-        `/api/lyrics?q=${encodeURI(`${artistName} ${songName}`)}`
+        `${apiUrl}/lyrics?q=${encodeURI(`${artistName} ${songName}`)}`
       );
 
       if (searchResults) {
